@@ -38,30 +38,7 @@ Este projeto implementa e permite a comparação das seguintes metodologias:
 
 O projeto segue um pipeline claro, separando a construção das bases de dados da execução da aplicação final.
 
-```mermaid
-graph TD
-    A[data/annotations.csv<br>(Fonte da Verdade)] --> B(scripts/build_approach_1.py);
-    A --> C(scripts/build_approach_2.py);
-    A --> D(scripts/build_approach_3.py);
-    A --> E(scripts/build_approach_4.py);
-
-    B --> F[database/approach_1_text_only];
-    C --> G[database/approach_2_hybrid_clip];
-    D --> H[database/approach_3_pure_clip];
-    E --> I[database/approach_4_unified_hybrid];
-
-    subgraph "Fase 1: Construção das Bases de Dados"
-        A; B; C; D; E;
-    end
-
-    F & G & H & I --> J{app/search_app.py<br>(com seletor)};
-
-    subgraph "Fase 2: Execução da Aplicação"
-        J;
-    end
-
-    J --> K[Interface Web Interativa];
-```
+![Fluxo de Trabalho do Projeto](assets/fluxo_de_trabalho.png)
 
 ## 5\. Estrutura de Arquivos
 
@@ -120,10 +97,9 @@ pip install -r requirements.txt
 Para usar o painel comparativo, você precisa primeiro gerar os arquivos de embedding para cada abordagem. Execute os scripts correspondentes a partir da pasta raiz do projeto.
 
 ```bash
-# Para a Abordagem 1 (obrigatório, pois a app usa seu modelo por padrão)
+#obrigatório
 python scripts/build_text_only_approach.py
 
-# Para as outras abordagens (opcional, execute as que desejar comparar)
 python scripts/build_hybrid_approach.py
 python scripts/build_pure_clip_approach.py
 python scripts/build_unified_hybrid.py
